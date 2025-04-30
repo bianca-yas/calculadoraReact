@@ -7,41 +7,71 @@ export default function App(){
     const [segundoNum, setSegundoNum] = useState(0);
     const [resultado, setResultado] = useState(0);
 
+    function somar(){
+        setResultado(parseFloat(primeiroNum) + parseFloat(segundoNum));
+        return setResultado;
+    }//fim do somar
+
+    function subtrair(){
+        setResultado(parseFloat(primeiroNum) - parseFloat(segundoNum));
+        return setResultado;
+    }//fim do subtrair
+
+    function multiplicar(){
+        setResultado(parseFloat(primeiroNum) * parseFloat(segundoNum));
+        return setResultado;
+    }
+
+    function dividir(){
+        if(parseFloat(segundoNum) <= 0){
+            setResultado("Impossivel dividir por zero!");
+        }else{
+            setResultado(parseFloat(primeiroNum) / parseFloat(segundoNum));
+        }
+        return setResultado;
+    }
+
+    function limpar(){
+        setPrimeiroNum(0);
+        setSegundoNum(0);
+        setResultado(0);
+    }
+
     return(
         <View style={styles.tela}>
-            <Text style={styles.tituloProg}>Calculadora</Text> {/* comentario */}
+            <Text style={styles.tituloProg}>Calculadora</Text>
 
             <View style={styles.primeiroCampo}>
-                <TextInput style={styles.input} placeholder="Informe um número"/>
+                <TextInput style={styles.input} value={primeiroNum} onChangeText={novoNum => setPrimeiroNum(novoNum)} placeholder="Informe um número"/>
             </View>
 
             <View style={styles.segundoCampo}>
-                <TextInput style={styles.input} placeholder="Informe um número"/>
+                <TextInput style={styles.input} value={segundoNum} onChangeText={novoNum => setSegundoNum(novoNum)} placeholder="Informe um número"/>
             </View>
 
             <View style={styles.areaBotao}>
-                <TouchableOpacity style={styles.botao}>
-                    <Text>Subtrair</Text>
+                <TouchableOpacity style={styles.botao} onPress={subtrair}>
+                    <Text style={styles.texto}>Subtrair</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.botao}>
-                    <Text>Multiplicar</Text>
-                </TouchableOpacity>
-            </View>
-
-            <View style={styles.areaBotao}>
-                <TouchableOpacity style={styles.botao}>
-                    <Text>Dividir</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={styles.botao}>
-                    <Text>Somar</Text>
+                <TouchableOpacity style={styles.botao} onPress={multiplicar}>
+                    <Text style={styles.texto}>Multiplicar</Text>
                 </TouchableOpacity>
             </View>
 
             <View style={styles.areaBotao}>
-                <TouchableOpacity style={styles.botao}>
-                    <Text>Limpar</Text>
+                <TouchableOpacity style={styles.botao} onPress={dividir}>
+                    <Text style={styles.texto}>Dividir</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.botao} onPress={somar}>
+                    <Text style={styles.texto}>Somar</Text>
+                </TouchableOpacity>
+            </View>
+
+            <View style={styles.areaLimpar}>
+                <TouchableOpacity style={styles.botao} onPress={limpar}>
+                    <Text style={styles.texto}>Limpar</Text>
                 </TouchableOpacity>
             </View>
 
@@ -82,7 +112,7 @@ const styles = StyleSheet.create({
         width: "90%",
     },
     input:{
-        textAlign: "center", //comentario
+        textAlign: "center",
         fontSize: 15,
         color: "#ffff",
     },
@@ -106,10 +136,19 @@ const styles = StyleSheet.create({
         width: "100%",
         padding: 50,
     },
-    textoResultado:{
-        color: "#fff",
-        fontSize: 50,
+    textoResult:{
+        color: "#000",
+        fontSize: 40,
         textAlign: "center",
+    },
+    areaLimpar:{
+        marginTop: 10,
+        width:  785,
+    },
+    texto:{
+        textAlign: "center",
+        fontSize: 15,
+        color: "#fff",
     },
 });
 
